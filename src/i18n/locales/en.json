@@ -15,7 +15,7 @@
   "set-font-size": "Font size",
   "set-note": "Note",
   "copy-url": "Copy URL",
-  "view-result": "View result",
+  "view-result": "View result (or press key E)",
   "timeStringFormatDocumentation": "Time format documentation",
   "reset": "Reset"
 }

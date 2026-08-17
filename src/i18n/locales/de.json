@@ -15,7 +15,7 @@
   "set-font-size": "Schriftgröße",
   "set-note": "Notiz",
   "copy-url": "URL kopieren",
-  "view-result": "Ergebnis anschauen",
+  "view-result": "Ergebnis anschauen (oder Taste E drücken)",
   "timeStringFormatDocumentation": "Zeit String Formatierungsdokumentation",
   "reset": "Zurücksetzten"
 }

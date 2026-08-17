@@ -61,6 +61,22 @@ function Overlay({ edit }: OverlayProps) {
     return () => window.clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "e") {
+        if (edit) {
+          navigate("/" + location.search);
+        } else {
+          navigate("/edit" + location.search);
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [navigate, location, edit]);
+
   const copyUrl = useCallback(async () => {
     const url = new URL(window.location.href);
     url.pathname = url.pathname.replace(/\/edit$/, "") || "/";
