@@ -48,10 +48,8 @@ function Overlay({ edit }: OverlayProps) {
     const update = () => {
       const current = new Date();
       setNow(current);
-
       // Schedule the next update at the next exact second boundary.
       const delay = 1000 - current.getMilliseconds();
-
       timeout = window.setTimeout(update, delay);
     };
 
@@ -65,9 +63,15 @@ function Overlay({ edit }: OverlayProps) {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "e") {
         if (edit) {
-          navigate("/" + location.search);
+          navigate({
+            pathname: "/",
+            search: location.search,
+          });
         } else {
-          navigate("/edit" + location.search);
+          navigate({
+            pathname: "/edit",
+            search: location.search,
+          });
         }
       }
     };
@@ -79,7 +83,7 @@ function Overlay({ edit }: OverlayProps) {
 
   const copyUrl = useCallback(async () => {
     const url = new URL(window.location.href);
-    url.pathname = url.pathname.replace(/\/edit$/, "") || "/";
+    url.hash = url.hash.replace(/^#/, "").replace(/\/edit$/, "") || "/";
 
     try {
       await navigator.clipboard.writeText(url.toString());
@@ -92,7 +96,14 @@ function Overlay({ edit }: OverlayProps) {
       input.remove();
     }
   }, []);
-  const viewResult = useCallback(() => navigate("/" + location.search), [navigate, location]);
+  const viewResult = useCallback(
+    () =>
+      navigate({
+        pathname: "/",
+        search: location.search,
+      }),
+    [navigate, location],
+  );
 
   return (
     <>
