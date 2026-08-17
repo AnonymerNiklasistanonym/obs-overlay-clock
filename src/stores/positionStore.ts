@@ -13,8 +13,8 @@ interface PositionStore {
   setPositionHorizontal: (positionHorizontal: PositionHorizontal) => void;
 }
 
-export const POSITION_VERTICAL_DEFAULT = "bottom";
-export const POSITION_HORIZONTAL_DEFAULT = "right";
+export const POSITION_VERTICAL_DEFAULT: PositionVertical = "bottom";
+export const POSITION_HORIZONTAL_DEFAULT: PositionHorizontal = "right";
 
 export const usePositionStore = create<PositionStore>((set) => ({
   positionVertical:

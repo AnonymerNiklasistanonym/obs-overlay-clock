@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTranslation } from "../../node_modules/react-i18next";
 import {
   positionsHorizontal,
@@ -14,13 +15,20 @@ export default function PositionSelector() {
   const setPositionVertical = usePositionStore((state) => state.setPositionVertical);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    console.log({ positionHorizontal, positionVertical });
+  }, [positionHorizontal, positionVertical]);
+
   return (
     <>
       <select
         value={positionVertical}
-        onChange={(e) => setPositionVertical(e.target.value as PositionVertical)}
+        onChange={(e) => {
+          setPositionVertical(e.target.value as PositionVertical);
+          setPositionHorizontal(positionHorizontal);
+        }}
       >
-        {positionsHorizontal.map((code) => (
+        {positionsVertical.map((code) => (
           <option key={code} value={code}>
             {t("positionVertical")} {t(code)}
           </option>
@@ -28,9 +36,12 @@ export default function PositionSelector() {
       </select>
       <select
         value={positionHorizontal}
-        onChange={(e) => setPositionHorizontal(e.target.value as PositionHorizontal)}
+        onChange={(e) => {
+          setPositionHorizontal(e.target.value as PositionHorizontal);
+          setPositionVertical(positionVertical);
+        }}
       >
-        {positionsVertical.map((code) => (
+        {positionsHorizontal.map((code) => (
           <option key={code} value={code}>
             {t("positionHorizontal")} {t(code)}
           </option>
