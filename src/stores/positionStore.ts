@@ -13,13 +13,16 @@ interface PositionStore {
   setPositionHorizontal: (positionHorizontal: PositionHorizontal) => void;
 }
 
+export const POSITION_VERTICAL_DEFAULT = "bottom"
+export const POSITION_HORIZONTAL_DEFAULT = "right"
+
 export const usePositionStore = create<PositionStore>((set) => ({
   positionVertical: new URLSearchParams(window.location.search).get(
     "positionVertical",
-  ) as PositionVertical,
+  ) as PositionVertical || POSITION_VERTICAL_DEFAULT,
   positionHorizontal: new URLSearchParams(window.location.search).get(
     "positionHorizontal",
-  ) as PositionHorizontal,
+  ) as PositionHorizontal || POSITION_HORIZONTAL_DEFAULT,
   setPositionVertical: (positionVertical) => {
     const url = new URL(window.location.href);
 

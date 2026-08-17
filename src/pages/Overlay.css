@@ -53,3 +53,16 @@
 #clock.bottom {
   bottom: 0;
 }
+
+#clock.left.bottom {
+  border-bottom-left-radius: 0;
+}
+#clock.right.bottom {
+  border-bottom-right-radius: 0;
+}
+#clock.left.top {
+  border-top-left-radius: 0;
+}
+#clock.right.top {
+  border-top-right-radius: 0;
+}
