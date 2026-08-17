@@ -1,7 +1,7 @@
 :root {
   --clock-font: monospace;
   --clock-font-size: 1.5rem;
-  --clock-border-radius: 1.5rem;
+  --clock-border-radius: 1rem;
   --clock-padding: 0.25em;
   --clock-font-color: #fff;
   --clock-bg-color: rgba(0, 0, 0, 0.75);

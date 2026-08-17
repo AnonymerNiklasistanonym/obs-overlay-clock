@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useTranslation } from "../node_modules/react-i18next";
-import "./App.css";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Overlay from "./pages/Overlay";
 
