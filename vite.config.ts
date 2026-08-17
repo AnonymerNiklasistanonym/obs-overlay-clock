@@ -6,9 +6,7 @@ export default defineConfig({
   plugins: [react()],
   // change base if deploying via GitHub actions
   // (needs to take the path into account)
-  base: process.env.GITHUB_REPOSITORY
-    ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
-    : '/',
+  base: process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split("/")[1]}/` : "/",
   // instead of one JS file create one for each dependency
   build: {
     rollupOptions: {
