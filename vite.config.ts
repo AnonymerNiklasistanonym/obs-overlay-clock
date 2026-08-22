@@ -6,9 +6,10 @@ import path from "node:path";
 /**
  * Create static routes so that e.g. /edit can be used when deploying the static web server.
  * This means no additional configuration will be necessary for e.g. deploying via GitHub Pages.
- * @param routes A list of routes that should be created
+ * @param directories A list of routes that should be created as directories containing the index.html
+ * @param files A list of routes that should be created as files as copy of index.html
  */
-function staticRoutes(routes: string[]): Plugin {
+function staticRoutes(directories: string[], files?: string[]): Plugin {
   // Store the output directory after configuration was parsed
   let outDir: string;
   return {
@@ -19,10 +20,15 @@ function staticRoutes(routes: string[]): Plugin {
     async closeBundle() {
       const bundleIndex = path.join(outDir, "index.html");
       console.log("create static routes...");
-      for (const route of routes) {
+      for (const route of directories) {
         const routeDir = path.join(outDir, route);
         await fs.mkdir(routeDir, { recursive: true });
         const routeIndex = path.join(routeDir, "index.html");
+        await fs.copyFile(bundleIndex, routeIndex);
+        console.log(routeIndex, `(copy of ${bundleIndex})`);
+      }
+      for (const file of files ?? []) {
+        const routeIndex = path.join(outDir, `${file}.html`);
         await fs.copyFile(bundleIndex, routeIndex);
         console.log(routeIndex, `(copy of ${bundleIndex})`);
       }
@@ -32,7 +38,7 @@ function staticRoutes(routes: string[]): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), staticRoutes(["edit"])],
+  plugins: [react(), staticRoutes(["edit"], ["404"])],
   // change base if deploying via GitHub actions
   // (needs to take the path into account)
   base: process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split("/")[1]}/` : "/",
