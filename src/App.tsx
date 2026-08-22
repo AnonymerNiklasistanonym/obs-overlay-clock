@@ -16,7 +16,6 @@ function App() {
     document.title = t("pageTitle");
   }, [t]);
 
-  // HashRouter enables multiple routes using the '/#' prefix
   return (
     <BrowserRouter basename={basename}>
       <Suspense fallback={null}>
