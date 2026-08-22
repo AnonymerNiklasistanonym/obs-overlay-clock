@@ -8,6 +8,7 @@ import NoteInput from "./NoteInput";
 import "./EditOverlay.css";
 import LanguageSwitcher from "./LanguageSwitcher";
 import CountrySelector from "./CountrySelector";
+import FontFamilySelector from "./FontFamilyInput";
 
 function EditOverlay() {
   const { t } = useTranslation();
@@ -57,6 +58,9 @@ function EditOverlay() {
           </li>
           <li>
             {t("set-font-size")}: <FontSizeInput />
+          </li>
+          <li>
+            {t("set-font-family")}: <FontFamilySelector />
           </li>
           <li>
             {t("set-note")}: <NoteInput />

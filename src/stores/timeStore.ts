@@ -12,7 +12,7 @@ export const useTimeStore = create<TimeStore>((set) => ({
   setTimeString: (timeString) => {
     const url = new URL(window.location.href);
 
-    if (timeString) {
+    if (timeString && timeString.trim().length > 0 && timeString !== TIME_STRING_DEFAULT) {
       url.searchParams.set("timeString", timeString);
     } else {
       url.searchParams.delete("timeString");

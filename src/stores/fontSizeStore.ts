@@ -18,7 +18,7 @@ export const useFontSizeStore = create<FontSizeStore>((set) => ({
   setFontSize: (fontSize) => {
     const url = new URL(window.location.href);
 
-    if (fontSize || fontSize === 0) {
+    if ((fontSize || fontSize === 0) && fontSize !== FONT_SIZE_DEFAULT) {
       fontSize = lowerBound(fontSize);
       url.searchParams.set("fontSize", `${fontSize}`);
     } else {

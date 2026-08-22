@@ -1,5 +1,5 @@
 :root {
-  --clock-font: monospace;
+  --clock-font-family: monospace;
   --clock-font-size: 1.5rem;
   --clock-padding: 0.25em;
   --clock-font-color: #fff;
@@ -18,7 +18,7 @@
   font-size: var(--clock-font-size);
   /* Make element only as big as its content */
   display: inline-block;
-  font-family: var(--clock-font);
+  font-family: var(--clock-font-family);
   color: var(--clock-font-color);
   border-radius: calc(var(--clock-font-size) * 0.75);
   padding: var(--clock-padding);

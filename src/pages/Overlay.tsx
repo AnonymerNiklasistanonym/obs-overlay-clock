@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useFontSizeStore } from "../stores/fontSizeStore";
 import { useNoteStore } from "../stores/noteStore";
 import "./Overlay.css";
+import { FONT_FAMILY_DEFAULT, useFontFamilyStore } from "../stores/fontFamilyStore";
 
 // Lazy load components that will only be necessary when editing the page
 const EditOverlay = lazy(() => import("../components/EditOverlay"));
@@ -21,6 +22,7 @@ function Overlay({ edit }: OverlayProps) {
   const positionHorizontal = usePositionStore((state) => state.positionHorizontal);
   const positionVertical = usePositionStore((state) => state.positionVertical);
   const timeString = useTimeStore((state) => state.timeString);
+  const fontFamily = useFontFamilyStore((state) => state.fontFamily);
   const fontSize = useFontSizeStore((state) => state.fontSize);
   const note = useNoteStore((state) => state.note);
   const [now, setNow] = useState(() => new Date());
@@ -32,6 +34,13 @@ function Overlay({ edit }: OverlayProps) {
   const classNames = useMemo(() => {
     return [positionHorizontal, positionVertical].join(" ");
   }, [positionHorizontal, positionVertical]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--clock-font-family",
+      fontFamily ? `${fontFamily},${FONT_FAMILY_DEFAULT}` : FONT_FAMILY_DEFAULT,
+    );
+  }, [fontFamily]);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--clock-font-size", `${fontSize}rem`);
@@ -56,6 +65,11 @@ function Overlay({ edit }: OverlayProps) {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Ignore key when currently inside an input element
+      const target = event.target as HTMLElement;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
+        return;
+      }
       if (event.key === "e") {
         if (edit) {
           navigate({

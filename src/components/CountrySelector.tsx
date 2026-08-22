@@ -10,7 +10,10 @@ export default function CountrySelector() {
   const countryCodes = Object.keys(Flags);
 
   return (
-    <select value={country ?? undefined} onChange={(e) => setCountry(e.target.value)}>
+    <select
+      value={country ?? undefined}
+      onChange={(e) => setCountry(e.target.value === "null" ? null : e.target.value)}
+    >
       <option key={"null"} value={"null"}>
         {t("none")}
       </option>
