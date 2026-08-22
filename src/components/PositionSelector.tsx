@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useTranslation } from "../../node_modules/react-i18next";
 import {
   positionsHorizontal,
@@ -14,10 +13,6 @@ export default function PositionSelector() {
   const setPositionHorizontal = usePositionStore((state) => state.setPositionHorizontal);
   const setPositionVertical = usePositionStore((state) => state.setPositionVertical);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    console.log({ positionHorizontal, positionVertical });
-  }, [positionHorizontal, positionVertical]);
 
   return (
     <>
