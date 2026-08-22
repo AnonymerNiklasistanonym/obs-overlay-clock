@@ -1,7 +1,6 @@
 :root {
   --clock-font: monospace;
   --clock-font-size: 1.5rem;
-  --clock-border-radius: 1rem;
   --clock-padding: 0.25em;
   --clock-font-color: #fff;
   --clock-bg-color: rgba(0, 0, 0, 0.75);
@@ -21,7 +20,7 @@
   display: inline-block;
   font-family: var(--clock-font);
   color: var(--clock-font-color);
-  border-radius: var(--clock-border-radius);
+  border-radius: calc(var(--clock-font-size) * 0.75);
   padding: var(--clock-padding);
   background-color: var(--clock-bg-color);
   /* Enable aligning it over the whole website */
