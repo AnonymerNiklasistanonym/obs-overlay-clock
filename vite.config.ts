@@ -1,9 +1,38 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin, type ResolvedConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { promises as fs } from "node:fs";
+import path from "node:path";
+
+/**
+ * Create static routes so that e.g. /edit can be used when deploying the static web server.
+ * This means no additional configuration will be necessary for e.g. deploying via GitHub Pages.
+ * @param routes A list of routes that should be created
+ */
+function staticRoutes(routes: string[]): Plugin {
+  // Store the output directory after configuration was parsed
+  let outDir: string;
+  return {
+    name: "static-routes",
+    configResolved(config: ResolvedConfig) {
+      outDir = config.build.outDir;
+    },
+    async closeBundle() {
+      const bundleIndex = path.join(outDir, "index.html");
+      console.log("create static routes...");
+      for (const route of routes) {
+        const routeDir = path.join(outDir, route);
+        await fs.mkdir(routeDir, { recursive: true });
+        const routeIndex = path.join(routeDir, "index.html");
+        await fs.copyFile(bundleIndex, routeIndex);
+        console.log(routeIndex, `(copy of ${bundleIndex})`);
+      }
+    },
+  };
+}
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), staticRoutes(["edit"])],
   // change base if deploying via GitHub actions
   // (needs to take the path into account)
   base: process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split("/")[1]}/` : "/",

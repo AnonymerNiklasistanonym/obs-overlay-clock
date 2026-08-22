@@ -83,7 +83,8 @@ function Overlay({ edit }: OverlayProps) {
 
   const copyUrl = useCallback(async () => {
     const url = new URL(window.location.href);
-    url.hash = url.hash.replace(/^#/, "").replace(/\/edit$/, "") || "/";
+    // change only the pathname and keep URL parameters
+    url.pathname = url.pathname.replace(/\/edit$/, "") || "/";
 
     try {
       await navigator.clipboard.writeText(url.toString());
